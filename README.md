@@ -21,7 +21,7 @@ az loginでazureにlogin済みであること
 ## 使い方
 
 ### Create or modify NSG
-NSGを作成、既にある場合は変更を行う。
+NSGを作成。既にある場合は変更を行う。
 リソースグループがない場合は自動作成される。
 Roleの中に各環境ごとの設定があるので環境に合わせて名前とパラメータを
 書き換えて使用してください。
@@ -29,7 +29,7 @@ Roleの中に各環境ごとの設定があるので環境に合わせて名前�
     ansible-playbook create_nsg.yml -e resource_group={{リソースグループ名}} (-e ansible_python_interpreter=python3.7)
 
 ### Create or modify VM
-VMを作成。それに伴い必要なdiskとnicを作成。  
+VMを作成。それに伴い必要なdiskとnicを作成。  
 モックなのでpassword直書きのため本番は環境変数やansibleのハッシュで隠蔽することを推奨します。  
 vNet及び、対象subnetの作成が必要。必要パラメータは./local_varsにまとめているので
 ./local_vars/{{リソースグループ名}}/{{vm名}}.ymlのパラメータを設定。
