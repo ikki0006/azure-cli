@@ -1,0 +1,20 @@
+---
+machine:
+  name: devap01
+  size: Standard_D4s_v3 # VMサイズ
+  user: adminuser # ログインユーザ
+  pass: test01 # パスワード
+network:
+  vnet: devNetwork # 関連付けを行うVNET
+  subnet: devApSubnet # 関連付けを行うSubNet
+  nic: "{{ machine.name }}01" # NIC名
+  nsg: devApNsg # 関連付けを行うNSG(指定なしでも既定のルールで作られる)
+  private_ip: 192.168.1.30 # ローカルIPアドレス
+os:
+  type: Linux # OS種別
+  distribution: UbuntuServer # OSオファー
+  publisher: canonical # Publisher
+  sku: "18.04-LTS" # エディション
+  version: latest # イメージのバージョン
+  disk_type: StandardSSD_LRS # マネージドディスクタイプ
+reasion: japaneast # リージョン

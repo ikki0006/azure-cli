@@ -1,0 +1,37 @@
+---
+- name: Setting proSpNsg NSG
+  azure_rm_securitygroup:
+    resource_group: "{{ resource_group }}" #リソースグループ
+    name: proSpNsg
+    purge_rules: yes
+    rules:
+      ###############Inbound Rules#####################
+
+      - name: ssh
+        protocol: Tcp
+        destination_port_range: 22
+        source_address_prefix:
+          - "192.168.10.0/24" # VPNセグメント
+        access: Allow
+        priority: 1001 #ルールの優先度
+        direction: Inbound #ルールのタイプ（受信か送信か）
+      - name: http
+        protocol: Tcp
+        destination_port_range:
+          - "80"
+          - "443"
+        source_address_prefix:
+          - "192.168.10.0/24" # VPNセグメント
+        access: Allow #アクセスのタイプ（Allow,Deny）
+        priority: 1002 #ルールの優先度
+        direction: Inbound #ルールのタイプ（受信か送信か）
+      - name: intDenyAll
+        protocol: "*"
+        destination_port_range: "*" #ポート番号の指定
+        source_address_prefix:
+          - "192.168.0.0/16" #内部全拒否。外部は65500で拒否できる。
+        access: Deny
+        priority: 4096
+        direction: Inbound
+
+      ###############Outbound Rules#####################

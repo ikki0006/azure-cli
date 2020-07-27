@@ -1,0 +1,7 @@
+---
+- name: Create a public ip address
+  azure_rm_publicipaddress:                 # publicip作成モジュール
+    resource_group: "{{ rgname }}"          # リソースグループ
+    name: "{{ pubname }}"                   # publicipの名前
+    allocation_method: "{{ method }}"       # 動的か静的か
+    sku: "{{ skuchoice }}"                  # SKUの選択

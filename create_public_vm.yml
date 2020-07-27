@@ -1,0 +1,8 @@
+---
+- name: az vm create
+  hosts: localhost
+  connection: local # localhostに対してつなげるときの宣言。SSHではなく直接実行する
+  vars_files:
+    - ./local_vars/{{ resource_group }}/{{ vm }}.yml
+  roles:
+    - create_public_vm

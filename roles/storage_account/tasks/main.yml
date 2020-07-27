@@ -1,0 +1,10 @@
+# {{ 文字列 }}は変数
+# 変数の値はパラメータとなる
+---
+- name: Create storage account
+  azure_rm_storageaccount:
+    name: "{{ storagename }}"
+    account_type: "{{ storagetype }}"
+    resource_group: "{{ resource_group }}"
+    kind: "{{ kinds }}"
+    location: japaneast

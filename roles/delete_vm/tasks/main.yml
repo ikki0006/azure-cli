@@ -1,0 +1,21 @@
+---
+- name: delete VM
+  azure_rm_virtualmachine: # VM操作モジュール
+    resource_group: "{{ rgname }}" # リソースグループ
+    location: "{{ reasion }}" # リージョン
+    name: "{{ machinename }}" # VM名
+    state: absent # 削除指示
+
+- name: delete NIC
+  azure_rm_networkinterface: # Nic操作モジュール
+    resource_group: "{{ rgname }}" # リソースグループ
+    location: "{{ reasion }}" # リージョン
+    name: "{{ nicname }}" # NICの名前
+    state: absent # 削除指示
+
+- name: Delete managed disk
+  azure_rm_manageddisk: # マネージドディスク操作モジュール
+    resource_group: "{{ rgname }}" # リソースグループ
+    name: "{{ machinename }}" # マネージドディスク名
+    location: "{{ reasion }}" # リージョン
+    state: absent # 削除指示

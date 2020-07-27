@@ -1,0 +1,5 @@
+#retryは無視
+*.retry
+.ftpconfig
+.ftpignore
+.DS_Store

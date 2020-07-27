@@ -1,0 +1,4 @@
+---
+- import_tasks: proSpNsg.yml
+- import_tasks: proOpNsg.yml
+- import_tasks: proApNsg.yml

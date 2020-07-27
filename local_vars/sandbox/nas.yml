@@ -1,0 +1,5 @@
+---
+### var ###
+storagename: san00storage
+storagetype: Standard_LRS
+kinds: StorageV2

@@ -1,0 +1,8 @@
+---
+- name: az vm delete => {{ target }}
+  hosts: localhost # 実行させるグループ
+  connection: local # localhostに対してつなげるときの宣言。SSHではなく直接実行する
+  vars_files:
+    - ./local_vars/{{ group }}/{{ target }}
+  roles: # 実行させる処理（記載された順番に実行される
+    - delete_vm

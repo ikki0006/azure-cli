@@ -1,0 +1,21 @@
+---
+- import_tasks: management/main.yml
+  when: resource_group == "management"
+
+- import_tasks: development/main.yml
+  when: resource_group == "development"
+
+- import_tasks: staging/main.yml
+  when: resource_group == "staging"
+
+- import_tasks: stagingDmz/main.yml
+  when: resource_group == "stagingDmz"
+
+- import_tasks: production/main.yml
+  when: resource_group == "production"
+
+- import_tasks: productionDmz/main.yml
+  when: resource_group == "productionDmz"
+
+- import_tasks: sandbox/main.yml
+  when: resource_group == "sandbox"

@@ -1,0 +1,71 @@
+---
+- name: Setting prdRpNsg NSG
+  azure_rm_securitygroup: #モジュール名称
+    resource_group: "{{ resource_group }}" #リソースグループ
+    name: prdRpNsg #NSG名
+    purge_rules: yes
+    rules: #NSGに関連付けるルール
+      ###############Inbound Rules#####################
+
+      - name: SSH #ルール名
+        protocol: Tcp
+        destination_port_range: 22
+        source_address_prefix:
+          - "192.168.6.60/32" #踏み台のみ許可
+        access: Allow
+        priority: 1001
+        direction: Inbound
+      - name: http #ルール名
+        protocol: Tcp
+        destination_port_range: 80
+        source_address_prefix:
+          - "192.168.0.0/20" #内部からの80番は許容
+        access: Allow
+        priority: 1002
+        direction: Inbound
+      - name: cifs #ルール名
+        protocol: Tcp
+        destination_port_range: 445
+        source_address_prefix:
+          - "192.168.7.0/24" #production
+        access: Allow
+        priority: 1003
+        direction: Inbound
+      - name: intDenyAll
+        protocol: "*"
+        destination_port_range: "*" #ポート番号の指定
+        source_address_prefix:
+          - "192.168.0.0/16" #内部全拒否。外部は65500で拒否できる。
+        access: Deny
+        priority: 4096
+        direction: Inbound
+
+      ###############Outbound Rules#####################
+      - name: devOutbound
+        protocol: Tcp
+        destination_port_range: 80
+        destination_address_prefix:
+          - "192.168.1.0/24" #dev
+        access: Allow
+        priority: 1010
+        direction: Outbound
+      
+      - name: cifsOutbound
+        protocol: Tcp
+        destination_port_range: 
+          - 445
+        destination_address_prefix:
+          - "192.168.8.0/23" #productionDmz
+          - "192.168.19.0/24" #productionShare
+        access: Allow
+        priority: 1012
+        direction: Outbound
+
+      - name: intDenyOutbound
+        protocol: Tcp
+        destination_port_range: "*"
+        destination_address_prefix:
+          - "192.168.0.0/20" #他の内部は不許可
+        access: Deny
+        priority: 2000
+        direction: Outbound

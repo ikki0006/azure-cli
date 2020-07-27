@@ -1,0 +1,5 @@
+---
+### var ###
+storagename: prd00storage
+storagetype: Standard_LRS
+kinds: StorageV2

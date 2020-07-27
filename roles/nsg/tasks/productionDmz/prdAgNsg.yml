@@ -1,0 +1,16 @@
+---
+- name: Setting prdAgNsg NSG
+  azure_rm_securitygroup: #モジュール名称
+    resource_group: "{{ resource_group }}" #リソースグループ
+    name: prdAgNsg #NSG名
+    purge_rules: yes
+    rules: #NSGに関連付けるルール
+      ###############Inbound Rules#####################
+
+      - name: ApplicationGateWayControlPort #ルール名
+        protocol: "*"
+        destination_port_range: 65200-65535
+        source_address_prefix: "*"
+        access: Allow
+        priority: 1000
+        direction: Inbound
